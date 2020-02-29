@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+    <title>Subh : Bibliothek bremerhaven</title>
+    <link rel="stylesheet" href="resources/css/main.css" type="text/css" />
+</h:head>
+<h:body>
+    <ui:include src="components/header.xhtml"/>
+    <br/>
+    <br/>
+    <br/>
+    <b:container>
+        <b:row>
+            <b:column span="10" offset="3">
+            <h:form id="registerForm">
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputText value="Nachname:" for="nachname"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputText placeholder="Nachname" id="nachname" value="#{register.dummyUser.nachname}"
+                                     ajax="true" autocomplete="false" update="@(.message)">
+                            <f:facet name="prepend">
+                                <b:icon name="user"/>
+                            </f:facet>
+                        </b:inputText>
+                    </b:column>
+                </b:row>
+                
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputText value="Vorname:" for="vorname"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputText placeholder="Vorname" id="vorname" value="#{register.dummyUser.vorname}"
+                                     ajax="true" autocomplete="false" update="@(.message)">
+                            <f:facet name="prepend">
+                                <b:icon name="user"/>
+                            </f:facet>
+                        </b:inputText>
+                    </b:column>
+                </b:row>
+                
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputText value="Benutzername:" for="username"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputText placeholder="Benutzername" id="username" value="#{register.dummyUser.username}"
+                                     ajax="true" autocomplete="false" update="@(.message)">
+                            <f:facet name="prepend">
+                                <b:icon name="user"/>
+                            </f:facet>
+                        </b:inputText>
+                    </b:column>
+                </b:row>
+                
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputText value="Adresse:" for="adresse"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputText placeholder="Adresse" id="adresse" value="#{register.dummyUser.adresse}"
+                                     ajax="true" autocomplete="false" update="@(.message)">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="taxi"/>
+                            </f:facet>
+                        </b:inputText>
+                    </b:column>
+                </b:row>
+                
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputText value="E-Mail:" for="email"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputText placeholder="E-Mail" id="email" value="#{register.dummyUser.email}"
+                                     ajax="true" autocomplete="false" update="@(.message)">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="envelope"/>
+                            </f:facet>
+                        </b:inputText>
+                    </b:column>
+                </b:row>
+                <b:row tooltip="Mindestens 6 Zeichen">
+                    <b:column medium-screen="2">
+                        <h:outputText value="Passwort:"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputSecret placeholder="Password" id="password" value="#{register.unhashedPassword}"
+                                       ajax="true" autocomplete="false" update="@(.message)">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="key"/>
+                            </f:facet>
+                        </b:inputSecret>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column medium-screen="2">
+                        <h:outputText value="Passwort wiederholen:"/>
+                    </b:column>
+                    <b:column medium-screen="4">
+                        <b:inputSecret placeholder="Password" id="passwordConfirm" value="#{register.userConfirmPassword}"
+                                       ajax="true" autocomplete="false" update="@(.message)">
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="key"/>
+                            </f:facet>
+                        </b:inputSecret>
+                    </b:column>
+                </b:row>
+
+                <b:row>
+                    <b:messages/>
+                </b:row>
+                <b:row>
+                    <b:column span="2" offset="2">
+                       <b:commandButton value="Registrieren" action="#{register.register}" update="@form" look="primary"
+                                         style="width:100%"/>
+                    </b:column>
+                </b:row>
+            </h:form>
+            </b:column>
+        </b:row>
+    </b:container>
+</h:body>
+
+</html>
+

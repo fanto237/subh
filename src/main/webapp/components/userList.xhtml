@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<b:container>
+		<b:row style="margin-top:40px">
+			<h:form id="challengeForm">
+				<b:dataTable value="#{adminBean.userSearchResults}" var="user"
+					autoUpdate="true">
+					<b:dataTableColumn value="#{user.name}" label="Username" />
+					<b:dataTableColumn value="#{user.email}" label="E-Mail" />
+					<b:dataTableColumn label="Rolle">
+						<h:selectOneMenu id="languageMenu" value="#{user.role}"
+							required="true">
+							<f:selectItems value="#{adminBean.userRoleValues}" />
+						</h:selectOneMenu>
+					</b:dataTableColumn>
+					<b:dataTableColumn label="Aktionen">
+						<b:commandButton value="Update" ajax="true" update="@form"
+							action="#{adminBean.updateUser()}" />
+						<b:commandButton value="Löschen" ajax="true" update="@form"
+							action="#{adminBean.deleteUser()}" />
+					</b:dataTableColumn>
+				</b:dataTable>
+			</h:form>
+		</b:row>
+	</b:container>
+</ui:composition>

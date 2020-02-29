@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+<link rel="stylesheet" href="resources/css/main.css" type="text/css" />
+
+<h:head>
+	<title>Subh : Bibliothek bremerhaven</title>
+</h:head>
+<h:body>
+	<ui:include src="components/header.xhtml" />
+	<br />
+	<br />
+	<br />
+	<c:choose>
+		<c:when test="#{loginBean.user == null}">
+			<h:form enctype="multipart/form-data" id="login">
+				<b:container fluid="true">
+					<b:row>
+						<b:column medium-screen="1" offset="3">
+							<h:outputText value="Benutzername:" for="username" />
+						</b:column>
+						<b:column medium-screen="4">
+							<b:inputText id="usernameSection" placeholder="Username" value="#{loginBean.userName}" />
+						</b:column>
+						<b:column medium-screen="6">
+							<b:message />
+						</b:column>
+					</b:row>
+					<br />
+					<b:row>
+						<b:column medium-screen="1" offset="3">
+							<h:outputText value="Password:" />
+						</b:column>
+						<b:column medium-screen="4">
+							<b:inputSecret placeholder="Password"
+								id ="passwordSection" value="#{loginBean.userPassword}" />
+						</b:column>
+					<!--	<b:column medium-screen="6">
+							<b:message />
+						</b:column> -->
+					</b:row>
+					<b:row>
+						<b:column span="2" offset="4">
+							<b:commandButton update="@form" ajax="true" value="login" look="primary" style="width:100%"
+								action="#{loginBean.login()}" />
+						</b:column>
+						<b:column span="2">
+							<b:commandButton update="@form" ajax="true" value="password forgotten" look="danger"
+								style="width:100%" action="#{loginBean.forgotPasswordLink()}" />
+						</b:column>
+					</b:row>
+				</b:container>
+			</h:form>
+		</c:when>
+		<c:otherwise>
+			<br />
+			<br />
+			<br />
+			<b:container>
+				<b:column span="6" offset="3">
+					<h2>Ein User ist bereits eingeloggt !</h2>
+				</b:column>
+			</b:container>
+
+		</c:otherwise>
+	</c:choose>
+</h:body>
+</html>
