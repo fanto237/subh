@@ -39,8 +39,8 @@ public class UserBean {
 	
 	@PostConstruct
 	public void init() {
-
-		userBooks = dbReader.findBookByUser(loginBean.getUser().getUsername());
+		String tmp = loginBean.getUser().getUsername();
+		userBooks = dbReader.findBookByUser(tmp);
 		borrowedBooks.setWrappedData(userBooks);
 		
 	}
@@ -65,4 +65,9 @@ public class UserBean {
 		return borrowedBooks.getRowData();
 	}
 
+	public String profileLink() {
+		userBooks = dbReader.findBookByUser(loginBean.getUser().getUsername());
+		borrowedBooks.setWrappedData(userBooks);
+		return "/profile.xhtml?faces-redirect=true";
+	}
 }

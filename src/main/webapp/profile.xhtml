@@ -50,7 +50,7 @@
 							</b:row>
 						</b:form>
 					</b:column>
-					<b:column span="3" offset="1">
+					<b:column span="5" offset="1">
 						<b:row>
 							<b:column>
 								<h:graphicImage value="resources/assets/pp.png"
@@ -60,26 +60,39 @@
 						<br />
 						<br />
 						<b:row>
-							<!-- <h:form>
-								<b:dataTable value="#{userBean.borrowedBooks}" var="book"
-									caption="Die Bücher, die sie bisher ausgeliehen haben :">
-									<b:dataTableColumn value="#{book.name}" label="Name" />
-									<b:dataTableColumn>
-										<b:commandLink value="zurückgeben" action="#{userBean.giveBack()}" />
-									</b:dataTableColumn>
-								</b:dataTable>
-							</h:form>  -->
+							<h:form>
+								<h4 style="text-align: left;">Liste von ausgeliehenen
+									Bücher :</h4>
+								<p:dataTable value="#{userBean.borrowedBooks}" var="book">
+									<p:column headerText="Name">
+										<h:outputText value="#{book.name}" />
+									</p:column>
+									<p:column headerText="" style="width:150px;">
+										<p:commandButton value="zurückgeben" id="giveBack"
+											action="#{userBean.giveBack()}" style="margin-right:20px;"
+											styleClass="ui-priority-primary" />
+									</p:column>
+								</p:dataTable>
+							</h:form>
 						</b:row>
-						<br /> 
+						<br />
 					</b:column>
 				</b:row>
 			</b:container>
 			<br />
 			<b:container>
-				<b:column offset="5">
+				<b:column offset="2">
 					<b:form>
-						<b:commandButton value="Profil Bearbeiten" action="#"
-							style="text-align:center;"></b:commandButton>
+						<b:column span="2" offset="3">
+							<b:commandButton value="Profil Bearbeiten" action="#"
+								look="primary" style="text-align:center;"></b:commandButton>
+						</b:column>
+
+						<b:column span="2">
+							<b:commandButton value="zurück zur Bibliothek" action="/books.xhtml?faces-redirect=true"
+								look="success" style="text-align:center;"></b:commandButton>
+						</b:column>
+
 					</b:form>
 				</b:column>
 			</b:container>

@@ -95,9 +95,6 @@ public class LoginBean implements Serializable {
 		return "/register.xhtml?faces-redirect=true";
 	}
 
-	public String profileLink() {
-		return "/profile.xhtml?faces-redirect=true";
-	}
 
 	public String loginLink() {
 		return "/login.xhtml?faces-redirect=true";

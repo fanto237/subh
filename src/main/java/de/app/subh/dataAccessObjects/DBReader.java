@@ -113,7 +113,7 @@ public class DBReader {
 	 * @return
 	 */
 	public List<Book> findBookByUser(String username){
-		TypedQuery<Book> q = entityManager.createQuery("SELECT b FROM Book B WHERE b.borrower = :userName", Book.class);
+		TypedQuery<Book> q = entityManager.createQuery("SELECT b FROM Book b WHERE b.borrower = :userName", Book.class);
 		q.setParameter("userName", username);
 		try {
 			return q.getResultList();
