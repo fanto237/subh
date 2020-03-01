@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import de.app.subh.models.Book;
 import de.app.subh.models.User;
+import de.app.subh.models.enums.BookCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -87,6 +88,9 @@ public class DBReader {
 			// entityManager.close();
 		}
 	}
+	
+	
+	//**************************************************************************************//
 
 	/**
 	 * return all books from the data base
@@ -119,6 +123,27 @@ public class DBReader {
 			return q.getResultList();
 		} catch (NoResultException e) {
 			return null;
+		}finally {
+		//	entityManager.close();
+		}
+	}
+	
+	
+	/**
+	 * return all books of a determinate category
+	 * @param category
+	 * @return
+	 */
+	public List<Book> findBookByCategory(BookCategory category){
+		TypedQuery<Book> q = entityManager.createQuery("SELECT b FROM Book b WHERE b.category = :category AND b.status = :status", Book.class);
+		q.setParameter("category", category);
+		q.setParameter("status", "Available");
+		try {
+			return q.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}finally {
+		//	entityManager.close();
 		}
 	}
 }

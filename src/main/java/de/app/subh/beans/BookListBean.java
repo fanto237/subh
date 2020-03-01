@@ -27,71 +27,80 @@ public class BookListBean {
 
 	@EJB
 	private DBReader dbReader;
-	
+
 	@EJB
 	private DBWriter dbWriter;
-	
+
 	private List<Book> allBooks;
 	private DataModel<Book> bookSearchResults;
+	private static boolean test = false;
+	private static BookCategory localCat;
 	private String searchTerm;
-	private BookCategory category;
-	
+	private Book book;
+
 	@ManagedProperty("#{loginBean}")
-    private LoginBean loginBean;
-	
-	
+	private LoginBean loginBean;
+
 	@PostConstruct
 	public void init() {
 		this.searchTerm = "";
+		this.book = new Book();
 		this.allBooks = dbReader.findAllBook();
 		this.bookSearchResults = new ListDataModel<>();
 		this.bookSearchResults.setWrappedData(this.allBooks);
 	}
-	
+
 	public BookListBean() {
 	}
-	
+
 	public List<BookCategory> getCategoryEnumValues() {
-        return new ArrayList<>(Arrays.asList(BookCategory.values()));
+		return new ArrayList<>(Arrays.asList(BookCategory.values()));
 	}
-	
+
 	public void search() {
 		bookSearchResults = new ListDataModel<>();
 		List<Book> results = new ArrayList<>();
-		for(Book book : allBooks) {
-			if(book.getName().toLowerCase().contains(searchTerm.toLowerCase()))
+		for (Book book : allBooks) {
+			if (book.getName().toLowerCase().contains(searchTerm.toLowerCase()))
 				results.add(book);
 		}
 		bookSearchResults.setWrappedData(results);
 	}
-	
+
 	public void filterCategory(BookCategory cat) {
-		if(cat == null)
+
+		if (cat == null)
 			bookSearchResults.setWrappedData(allBooks);
 		else {
 			bookSearchResults = new ListDataModel<>();
-			List<Book> results = new ArrayList<>();
-			for(Book book : allBooks) {
-				if(book.getCategory().equals(cat))
-					results.add(book);
-			}
-			bookSearchResults.setWrappedData(results);
+//			List<Book> results = new ArrayList<>();
+//			for (Book book : dbReader.findAllBook()) {
+//				if (book.getCategory().equals(cat))
+//					results.add(book);
+//			}
+			bookSearchResults.setWrappedData(dbReader.findBookByCategory(cat));
+			test = true;
+			localCat = cat;
 		}
 	}
-	
-	public String borrow() {
-		dbWriter.borrowBook(getSelectedBook(), loginBean.getUser());
-		allBooks = dbReader.findAllBook();
-		bookSearchResults.setWrappedData(allBooks);
+
+	public String borrow(Book tmp) {
+
+//		if (test) {
+//			bookSearchResults.setWrappedData(dbReader.findBookByCategory(localCat));
+//			tmp = bookSearchResults.getRowData();
+//		} else
+//			tmp = bookSearchResults.getRowData();
+		dbWriter.borrowBook(tmp, loginBean.getUser());
+		bookSearchResults.setWrappedData(dbReader.findAllBook());
 		return "books.xhtml?faces-redirect=true";
 	}
-	
-	
-	
+
 	public String goTo(Book book) {
-        return "/books.xhtml?faces-redirect=true&id=" + book.getId();
-    }
-	
+		this.book = book;
+		return "/books.xhtml?faces-redirect=true&id=" + book.getId();
+	}
+
 	public Book getSelectedBook() {
 		return bookSearchResults.getRowData();
 	}

@@ -41,7 +41,7 @@
 							    <b:dataTableColumn value="#{book.publishDate}"  label="Datum" order="asc"/>
 							    <b:dataTableColumn value="#{book.shortDescription}" label="Beschreibung"/>
 							    <b:dataTableColumn label="">
-							    	<b:commandButton value="Sofort Ausleihen" action="#{bookListBean.borrow()}"></b:commandButton>
+							    	<b:commandButton value="Sofort Ausleihen" action="#{bookListBean.borrow(book)}"></b:commandButton>
 							    </b:dataTableColumn>
 				  			</b:dataTable>
 						</h:form>
