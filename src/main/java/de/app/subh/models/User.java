@@ -54,7 +54,7 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private String email;
 	
-	@Column(nullable = false, columnDefinition = "varchar(255) default 'ACTIVED'")
+	@Column(nullable = true, columnDefinition = "varchar(255) default 'ACTIVED'")
 	private String status;
 
 	@Column(nullable = false)
@@ -78,6 +78,7 @@ public class User implements Serializable {
 		 * 
 		 */
 		this.setRole(UserRole.NORMAL);
+		this.setStatus("ACTIVED");
 	}
 
 	public User(String nachname, String vorname, String username, String adresse, String email, String password,

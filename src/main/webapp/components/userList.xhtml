@@ -5,28 +5,49 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui">
+	<h:form>
+		<b:container>
+			<b:row style="margin-top:40px">
+				<b:column span="8" offset="2">
+					<b:inputText value="#{adminBean.searchTerm}"
+						class="UserSearchInput" placeholder="Suchen...">
+						<f:ajax event="keyup" listener="#{adminBean.searchUser()}"
+							delay="500" />
+					</b:inputText>
+				</b:column>
+			</b:row>
 
-	<b:container>
-		<b:row style="margin-top:40px">
-			<h:form id="challengeForm">
-				<b:dataTable value="#{adminBean.userSearchResults}" var="user"
-					autoUpdate="true">
-					<b:dataTableColumn value="#{user.name}" label="Username" />
-					<b:dataTableColumn value="#{user.email}" label="E-Mail" />
-					<b:dataTableColumn label="Rolle">
-						<h:selectOneMenu id="languageMenu" value="#{user.role}"
-							required="true">
-							<f:selectItems value="#{adminBean.userRoleValues}" />
-						</h:selectOneMenu>
-					</b:dataTableColumn>
-					<b:dataTableColumn label="Aktionen">
-						<b:commandButton value="Update" ajax="true" update="@form"
-							action="#{adminBean.updateUser()}" />
-						<b:commandButton value="Löschen" ajax="true" update="@form"
-							action="#{adminBean.deleteUser()}" />
-					</b:dataTableColumn>
-				</b:dataTable>
-			</h:form>
-		</b:row>
-	</b:container>
+			<b:row style="margin-top:40px">
+				<h:form id="Userform">
+					<b:dataTable value="#{adminBean.userSearchResults}" var="user"
+						autoUpdate="true" searching="false"
+						style="background-color: #d9d9d9;">
+						<b:dataTableColumn value="#{user.username}" label="Username" />
+						<b:dataTableColumn value="#{user.email}" label="E-Mail" />
+						<b:dataTableColumn value="#{adminBean.getAmountOfBook(user)}" label="Anzahl von Bücher" />
+						<b:dataTableColumn label="Rolle">
+							<h:selectOneMenu id="languageMenu" value="#{user.role}"
+								required="true">
+								<f:selectItems value="#{adminBean.roleEnumValues}" />
+							</h:selectOneMenu>
+						</b:dataTableColumn>
+						<b:dataTableColumn label="Konto Status">
+							<h:selectOneMenu id="statusMenu" value="#{user.status}"
+								required="true">
+								<f:selectItems value="#{adminBean.kontoStatus}" />
+							</h:selectOneMenu>
+						</b:dataTableColumn>
+						<b:dataTableColumn label="Aktion">
+							<b:commandButton value="Speichern" ajax="true" update="@form"
+								action="#{adminBean.saveUser()}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn label="Aktion">
+							<b:commandButton value="Löschen" ajax="true" update="@form"
+								action="#{adminBean.deleteUser()}" />
+						</b:dataTableColumn>
+					</b:dataTable>
+				</h:form>
+			</b:row>
+		</b:container>
+	</h:form>
 </ui:composition>

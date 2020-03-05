@@ -28,8 +28,6 @@ public class BookListBean {
 	private DBWriter dbWriter;
 
 	private DataModel<Book> bookSearchResults;
-	private static boolean test = false;
-	private static BookCategory localCat;
 	private String searchTerm;
 	private Book choosedBook;
 
@@ -63,8 +61,6 @@ public class BookListBean {
 			bookSearchResults.setWrappedData(this.dbReader.findAllBook());
 		else {
 			bookSearchResults.setWrappedData(this.dbReader.findBookByCategory(cat));
-			test = true;
-			localCat = cat;
 		}
 	}
 
@@ -123,22 +119,6 @@ public class BookListBean {
 
 	public void setBookSearchResults(DataModel<Book> bookSearchResults) {
 		this.bookSearchResults = bookSearchResults;
-	}
-
-	public static boolean isTest() {
-		return test;
-	}
-
-	public static void setTest(boolean test) {
-		BookListBean.test = test;
-	}
-
-	public static BookCategory getLocalCat() {
-		return localCat;
-	}
-
-	public static void setLocalCat(BookCategory localCat) {
-		BookListBean.localCat = localCat;
 	}
 
 	public String getSearchTerm() {

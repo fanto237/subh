@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<h:form id="BooksForm">
+		<b:container>
+			<b:row style="margin-top:40px">
+				<b:column span="8" offset="2">
+					<b:inputText value="#{bookListBean.searchTerm}"
+						class="booksSearchInput" placeholder="Suchen...">
+						<f:ajax event="keyup" listener="#{bookListBean.search()}"
+							delay="500" />
+					</b:inputText>
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:column span="12">
+					<div id="BookCategoryButton" style="text-align: center;">
+						<b:commandButton style="margin-right:10px" class="btn-primary"
+							ajax="true" value="Alle"
+							action="#{bookListBean.filterCategory(null)}" />
+						<c:forEach items="${bookListBean.categoryEnumValues}"
+							var="category">
+							<b:commandButton style="margin-right:10px" class="btn-primary"
+								ajax="true" value="#{category.displayText}"
+								action="#{bookListBean.filterCategory(category)}" />
+						</c:forEach>
+					</div>
+				</b:column>
+			</b:row>
+
+			<b:row style="margin-top:50px">
+				<b:column span="11" offset="1">
+					<h:form>
+						<b:dataTable style="background-color: #d9d9d9;"
+							value="#{bookListBean.bookSearchResults}" var="book"
+							autoUpdate="true" searching="false"
+							caption="List of book contained in the data base">
+							<b:dataTableColumn label="Name" style="width:130;">
+								<b:commandButton action="#{bookListBean.goTo()}"
+									value="#{book.name}"
+									style="border:none;padding:0;color:blue;text-decoration:blink;cursor:pointer;" />
+							</b:dataTableColumn>
+							<b:dataTableColumn value="#{book.author}" label="Autor" />
+							<b:dataTableColumn value="#{book.category.displayText}"
+								label="Kategorie" />
+							<b:dataTableColumn value="#{book.publishDate}" label="Datum"
+								order="asc" />
+							<b:dataTableColumn value="#{book.shortDescription}"
+								label="Beschreibung" />
+							<b:dataTableColumn label="">
+								<b:commandButton value="Sofort Ausleihen"
+									action="#{bookListBean.borrow()}"></b:commandButton>
+							</b:dataTableColumn>
+						</b:dataTable>
+					</h:form>
+				</b:column>
+			</b:row>
+		</b:container>
+	</h:form>
+</ui:composition>

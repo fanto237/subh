@@ -14,48 +14,64 @@
 </h:head>
 <h:body>
 	<ui:include src="components/header.xhtml" />
+
 	<b:jumbotron style="background-color:#a6a6a6;">
 		<b:container>
-			<h1 align="left">
-				Hello,
-				<h:outputText value="#{loginBean.user.vorname}" />
-				!
-			</h1>
-			<p>Unsere Bibliothek an der Hochschule Bremen ist unter der
-				Verwaltung der Subbibliothek Bremen, deswegen haben wir uns
-				entschieden unsere eigene Bibliothek entwicklen. Wie eine Bibliothek
-				Webseite, bietet unsere Webseite dem Nutzer die Möglichkeit, vor
-				allemn sein eigene Konto zu erstellen, die verfügbare Bücher in der
-				Bibliothek abzurufen und natürlich gewählte Bücher auszuleihen.
-				Außerdem kann der Nutzer bei falschen Daten bei der Registrierung
-				oder bei Umzug sein Anschrift sowie die anderen personenbezogenen
-				Daten zu ändern.</p>
-			<p>
-				<a class="btn btn-primary btn-lg" href="books.xhtml">Get started</a>
-			</p>
+			<c:choose>
+				<c:when test="#{loginBean.user.adminUser}">
+					<h1 align="center">
+						Welcome
+						<h:outputText value="#{loginBean.user.vorname}" />
+						to your Administration session !
+					</h1>
+					<br />
+					<p>Hier kannst du das System komplet verwalten.</p>
+					<p>
+						<a class="btn btn-primary btn-lg" href="adminpage.xhtml">Get
+							started</a>
+					</p>
+				</c:when>
+				<c:otherwise>
+					<h1 align="left">
+						Hello,
+						<h:outputText value="#{loginBean.user.vorname}" />
+						!
+					</h1>
+					<p>Unsere Bibliothek an der Hochschule Bremen ist unter der
+						Verwaltung der suub-ubi Bibliothek Bremen, deswegen haben wir uns
+						entschieden unsere eigene Bibliothek entwicklen. Wie eine
+						Bibliothek Webseite, bietet unsere Webseite dem Nutzer die
+						Möglichkeit, vor allemn sein eigene Konto zu erstellen, die
+						verfügbare Bücher in der Bibliothek abzurufen und natürlich
+						gewählte Bücher auszuleihen. Außerdem kann der Nutzer bei falschen
+						Daten bei der Registrierung oder bei Umzug sein Anschrift sowie
+						die anderen personenbezogenen Daten zu ändern.</p>
+					<p>
+						<a class="btn btn-primary btn-lg" href="books.xhtml">Get
+							started</a>
+					</p>
+				</c:otherwise>
+			</c:choose>
 		</b:container>
 	</b:jumbotron>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
 	<b:container>
-		<b:row>
-			<b:column col-md="4">
-				<h:panelGroup display="block">
-					<h:graphicImage value="" class="homeBild" />
-				</h:panelGroup>
-			</b:column>
-			<b:column col-md="4">
-				<h:panelGroup display="block">
-					<h:graphicImage value="" class="homeBild" />
-				</h:panelGroup>
-			</b:column>
-			<b:column col-md="4">
-				<h:panelGroup display="block">
-					<h:graphicImage value="" class="homeBild" />
-				</h:panelGroup>
-			</b:column>
-		</b:row>
 		<hr />
 		<footer>
-			<p></p>
+			<h4 align="center">&#169; Copyright 2020 Siani Lucien - Francine
+				Djieya</h4>
 		</footer>
 	</b:container>
 </h:body>

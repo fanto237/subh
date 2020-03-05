@@ -59,6 +59,7 @@ public class Book implements Serializable {
 
 	public Book() {
 		super();
+		this.setStatus("Available");
 	}
 	
 	// Setters and Getters

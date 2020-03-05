@@ -91,7 +91,7 @@ public class DBReader {
 	//**************************************************************************************//
 
 	/**
-	 * return all books from the data base
+	 * return all books from the data base, which are available
 	 *
 	 * @return
 	 */
@@ -104,6 +104,17 @@ public class DBReader {
 		} catch (NoResultException e) {
 			return null;
 		} finally {
+			// entityManager.close();
+		}
+	}
+	
+	public List<Book> getAllBook() {
+		TypedQuery<Book> q = entityManager.createQuery("SELECT b FROM Book b", Book.class);
+		try {
+			return q.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}finally {
 			// entityManager.close();
 		}
 	}
