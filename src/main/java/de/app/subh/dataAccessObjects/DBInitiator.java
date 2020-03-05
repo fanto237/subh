@@ -6,8 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import lombok.Getter;
-
 /**
  * create the connection to the data base using the persistence.xml file
  * 
@@ -15,7 +13,6 @@ import lombok.Getter;
  *
  */
 
-@Getter
 public enum DBInitiator {
 	
 	OBJECT;
@@ -43,5 +40,18 @@ public enum DBInitiator {
 		if(Objects.nonNull(entityManagerFactory))
 			entityManagerFactory.close();
 	}
+
+	
+	// Setters and Getters
+	
+	public EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
+	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
+	}
+	
+	
 
 }

@@ -84,12 +84,12 @@
 				<b:column offset="2">
 					<b:form>
 						<b:column span="2" offset="3">
-							<b:commandButton value="Profil Bearbeiten" action="#"
+							<b:commandButton value="Profil Bearbeiten" action="#{userBean.modifyProfil()}"
 								look="primary" style="text-align:center;"></b:commandButton>
 						</b:column>
 
 						<b:column span="2">
-							<b:commandButton value="zurück zur Bibliothek" action="/books.xhtml?faces-redirect=true"
+							<b:commandButton value="zurück zur Bibliothek" action="#{bookListBean.comeBack()}"
 								look="success" style="text-align:center;"></b:commandButton>
 						</b:column>
 

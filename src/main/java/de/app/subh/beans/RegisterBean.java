@@ -13,11 +13,7 @@ import de.app.subh.dataAccessObjects.DBWriter;
 import de.app.subh.exceptions.UserEmailException;
 import de.app.subh.exceptions.UserPasswordException;
 import de.app.subh.models.User;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 @ManagedBean(name = "register")
 @RequestScoped
 public class RegisterBean {
@@ -64,5 +60,40 @@ public class RegisterBean {
         }
         return isValid;
     }
+
+    
+ // Setters and Getters
+    
+	public DBWriter getDbWriter() {
+		return dbWriter;
+	}
+
+	public void setDbWriter(DBWriter dbWriter) {
+		this.dbWriter = dbWriter;
+	}
+
+	public String getUnhashedPassword() {
+		return unhashedPassword;
+	}
+
+	public void setUnhashedPassword(String unhashedPassword) {
+		this.unhashedPassword = unhashedPassword;
+	}
+
+	public String getUserConfirmPassword() {
+		return userConfirmPassword;
+	}
+
+	public void setUserConfirmPassword(String userConfirmPassword) {
+		this.userConfirmPassword = userConfirmPassword;
+	}
+
+	public User getDummyUser() {
+		return dummyUser;
+	}
+
+	public void setDummyUser(User dummyUser) {
+		this.dummyUser = dummyUser;
+	}
 
 }

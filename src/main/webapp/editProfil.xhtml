@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<title>Subh : Bibliothek bremerhaven</title>
+	<link rel="stylesheet" href="resources/css/main.css" type="text/css" />
+	<link rel="stylesheet" href="resources/css/codemirror.css"
+		type="text/css" />
+</h:head>
+<h:body>
+	<ui:include src="components/header.xhtml" />
+	<br />
+	<br />
+	<br />
+	<c:choose>
+		<c:when test="#{not empty loginBean.user}">
+			<h:form enctype="multipart/form-data" id="editProfil">
+				<b:container fluid="true">
+						<b:row>
+							<b:column span="3" offset="5">
+									<b:row>
+										<b:inputText id="name" value="#{userBean.currentUser.nachname}"
+											label="Nachname :" readonly="false" />
+									</b:row>
+									<b:row>
+										<b:inputText id="lastname" value="#{userBean.currentUser.vorname}"
+											label="Vorname :" readonly="false" />
+									</b:row>
+									<b:row>
+										<b:inputText id="adress" value="#{userBean.currentUser.adresse}"
+											label="Anschrift :" readonly="false" />
+									</b:row>
+									<b:row>
+										<b:inputText id="email" value="#{userBean.currentUser.email}"
+											label="E-Mail :" readonly="false" />
+									</b:row>
+
+									<b:row>
+										<b:inputSecret id="oldPass" value="#{userBean.oldPassword}"
+											label="Altes Passwort :" readonly="false" required="false" />
+									</b:row>
+
+									<b:row>
+										<b:inputSecret id="newPass" value="#{userBean.newPasswort}"
+											label="Neues Passwort:" readonly="false" required="false"/>
+									</b:row>
+							</b:column>
+						</b:row>
+					</b:container>
+					<br />
+					<br />
+					<b:container>
+						<b:column offset="1">
+								<b:column span="2" offset="3">
+									<b:commandButton value="Speichern"
+										action="#{userBean.saveProfil()}" look="success"
+										style="text-align:center;"/>
+								</b:column>
+
+								<b:column span="2">
+									<b:commandButton value="Abbrechen"
+										action="#{userBean.profileLink()}" look="primary"
+										style="text-align:center;"/>
+								</b:column>
+								
+								<b:column span="2">
+									<b:commandButton value="Konto desativieren"
+										action="#{userBean.desactiveAccount()}" look="danger"
+										style="text-align:center;"/>
+								</b:column>
+						</b:column>
+					</b:container>
+			</h:form>
+		</c:when>
+		<c:otherwise>
+			<br />
+			<br />
+			<br />
+			<b:container>
+				<b:column span="6" offset="3">
+					<h2>Du musst dich erst einloggen !</h2>
+				</b:column>
+			</b:container>
+		</c:otherwise>
+	</c:choose>
+</h:body>
+</html>

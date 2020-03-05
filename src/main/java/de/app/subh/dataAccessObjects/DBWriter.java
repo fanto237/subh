@@ -12,8 +12,6 @@ import de.app.subh.exceptions.UserPasswordException;
 import de.app.subh.models.Book;
 import de.app.subh.models.User;
 import de.app.subh.utilities.EnryptionHelper;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * class used for writing ( adding and deleting ) entities in the data base
@@ -21,8 +19,7 @@ import lombok.Setter;
  * @author lucien 
  *
  */
-@Getter
-@Setter
+
 @Named
 @Stateless
 public class DBWriter {
@@ -156,11 +153,28 @@ public class DBWriter {
 		if(Objects.nonNull(user)) {
 			transaction.begin();
 			dbReader.getEntityManager().merge(user);
-//			dbReader.getEntityManager().persist(user);
 			transaction.commit();
 		}else
 			System.out.println("the user is null !");
 	}
 	
+	
+	// Setters and Getters
+
+	public DBReader getDbReader() {
+		return dbReader;
+	}
+
+	public void setDbReader(DBReader dbReader) {
+		this.dbReader = dbReader;
+	}
+
+	public EntityTransaction getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(EntityTransaction transaction) {
+		this.transaction = transaction;
+	}
 
 }

@@ -19,52 +19,9 @@
 	<ui:include src="components/header.xhtml" />
 	<c:choose>
 		<c:when test="#{not empty loginBean.user}">
-			<c:choose>
-				<c:when test="#{bookListBean.book.id == 0}">
-					<h:panelGroup>
-						<ui:include src="components/bookList.xhtml" />
-					</h:panelGroup>
-				</c:when>
-				<c:otherwise>
-					<b:container>
-						<b:row>
-							<b:column>
-								<h:outputText value="#{bookListBean.book.name}" label="Name :" />
-								<h:outputText value="#{bookListBean.book.author}" label="Autor :" />
-								<h:outputText value="#{bookListBean.book.publisher}"
-									label="Verlage :" />
-								<h:outputText value="#{bookListBean.book.publishDate}"
-									label="Datum :" />
-								<h:outputText value="#{bookListBean.book.category.displayText}"
-									label="Kategorie :" />
-								<h:outputText value="#{bookListBean.book.description}"
-									label="Information :" />
-							</b:column>
-							<b:column>
-								<h:graphicImage value="resources/assets/kopie2.png"
-									class="buchProfil" />
-							</b:column>
-						</b:row>
-					</b:container>
-					<b:container>
-						<b:row>
-							<b:form>
-								<b:column span="2" offset="3">
-									<b:commandButton value="Buch Ausleihen" action="#{bookListBean.borrow(bookListBean.book)}"
-										look="primary" style="text-align:center;"></b:commandButton>
-								</b:column>
-
-								<b:column span="2">
-									<b:commandButton value="zurück zur Bibliothek"
-										action="/books.xhtml?faces-redirect=true" look="success"
-										style="text-align:center;"></b:commandButton>
-								</b:column>
-
-							</b:form>
-						</b:row>
-					</b:container>
-				</c:otherwise>
-			</c:choose>
+			<h:panelGroup>
+				<ui:include src="components/bookList.xhtml" />
+			</h:panelGroup>
 		</c:when>
 		<c:otherwise>
 			<br />

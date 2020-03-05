@@ -11,8 +11,6 @@ import javax.persistence.TypedQuery;
 import de.app.subh.models.Book;
 import de.app.subh.models.User;
 import de.app.subh.models.enums.BookCategory;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * to get Entities from the database
@@ -20,8 +18,7 @@ import lombok.Setter;
  * @author lucien
  *
  */
-@Getter
-@Setter
+
 @Named
 @Stateless
 public class DBReader {
@@ -56,8 +53,9 @@ public class DBReader {
 	 */
 	public User findSingleUserByName(final String name) {
 
-		TypedQuery<User> q = entityManager.createQuery("SELECT u FROM User u WHERE u.username = :name", User.class);
+		TypedQuery<User> q = entityManager.createQuery("SELECT u FROM User u WHERE u.username = :name AND u.status = :status", User.class);
 		q.setParameter("name", name);
+		q.setParameter("status", "ACTIVED");
 		try {
 			return q.getSingleResult();
 		} catch (NoResultException e) {
@@ -146,4 +144,16 @@ public class DBReader {
 		//	entityManager.close();
 		}
 	}
+	
+	// Setters and Getters
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
+	
 }

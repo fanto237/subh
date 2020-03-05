@@ -1,8 +1,5 @@
 package de.app.subh.models.enums;
 
-import lombok.Getter;
-
-@Getter
 public enum BookCategory {
 	MANGAS("Mangas"),
 	SCIENCE("Wissenschaft"),
@@ -22,4 +19,15 @@ public enum BookCategory {
 	public String toString() {
 		return displayText;
 	}
+	
+	// Setters and Getters
+	
+	public String getDisplayText() {
+		return displayText;
+	}
+
+	public void setDisplayText(String displayText) {
+		this.displayText = displayText;
+	}
+	
 }
