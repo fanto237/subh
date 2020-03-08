@@ -10,7 +10,7 @@ The knowledge in Java EE, JavaServer Faces, Contexts and Dependency Injection an
 * close this repository ``git clone https://github.com/fantozor/subh.git``
 
 ## Project Structures
-* ``/beans :`` here are all **@ManagedBeans** classes implemented. The **loginBean** is present in almost all others beans as **ManagedProperty**, with scope **SessionScoped** and carry the current user.
+* ``/beans :`` here are all **backend Beans** classes implemented. The **loginBean** is present in almost all others beans as **ManagedProperty**, with scope **SessionScoped** and carry the current user.
 
 * ``/dataAccessObjects :`` here are all classes need for transactions on the database and the hibernate calls.
 
