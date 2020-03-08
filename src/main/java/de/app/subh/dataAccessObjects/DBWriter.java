@@ -52,7 +52,7 @@ public class DBWriter {
 	public void deleteUser(User user) {
 
 		transaction.begin();
-		dbReader.getEntityManager().merge(user);
+		//dbReader.getEntityManager().merge(user);
 		dbReader.getEntityManager().remove(user);
 		transaction.commit();
 	}

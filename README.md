@@ -2,11 +2,11 @@
 A library online platform for borrowing books and administration users and books
  
 ## About the project
-This application has been developed as part of a school module proposed by the [University Bremerhaven](https://www.hs-bremerhaven.de/start/) for learning in web application.
+⋅⋅⋅This application has been developed as part of a school module proposed by the [University Bremerhaven](https://www.hs-bremerhaven.de/start/) for learning in web application.
 
-The knowledge in Java EE, JavaServer Faces, Contexts and Dependency Injection and Hibernate has been improved and was necessary for the realization of this project.
+⋅⋅⋅The knowledge in Java EE, JavaServer Faces, Contexts and Dependency Injection and Hibernate has been improved and was necessary for the realization of this project
 
-##Project Structures
+## Project Structures
 * ``/beans :`` here are all ``@ManagedBeans`` classes implemented. The ``loginBean`` is present in almost all others beans as ``ManagedProperty``, with scope ``SessionScoped`` and carry the current user.
 
 * ``/dataAccessObjects :`` here are all classes need for transactions on the database and the hibernate calls.
@@ -19,8 +19,11 @@ The knowledge in Java EE, JavaServer Faces, Contexts and Dependency Injection an
 
 * ``/utilities :`` Validators and EncryptionsHelper to encrypt the password using a random salt before saving in the database.
 
-##Key Dependencies
-* ``Hibernate :`` Open source ORM tool for the Java programming language.
+## Key Dependencies
+⋅⋅⋅Hibernate: Open-Source-Persistence- and ORM-Framework for Java application. Alternative Eclipse-Link⋅⋅
+⋅⋅⋅MySQL: an open source database management system developed by Oracle. Alternative  H2⋅⋅
+⋅⋅⋅Primefaces: Open source framework for JavaServer Faces featuring over 100 components, touch optimized mobilekit, client side validation, theme engine and more.⋅⋅
+⋅⋅⋅Bootsfaces: JSF framework based on Bootstrap 3 and jQuery UI⋅⋅
 
 
 ## Features
