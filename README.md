@@ -2,7 +2,7 @@
 A library online platform for borrowing books and administration users and books
  
 ## About the project
-This application has been developed as part of a school module proposed by the [University Bremerhaven](https://www.hs-bremerhaven.de/start/) for learning in web application.
+This application has been developed as part a school module for programming web application learning  proposed by the [University Bremerhaven](https://www.hs-bremerhaven.de/start/) for its computer science students.
 
 The knowledge in Java EE, JavaServer Faces, Contexts and Dependency Injection and Hibernate has been improved and was necessary for the realization of this project.
 
