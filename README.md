@@ -7,7 +7,10 @@ This application has been developed as part a school module for programming web 
 The knowledge in Java EE, JavaServer Faces, Contexts and Dependency Injection and Hibernate has been improved and was necessary for the realization of this project.
 
 ## Installation
-* close this repository ``git clone https://github.com/fantozor/subh.git``
+For running this app it is necessary to have at least [Apache Maven](https://mirror.synyx.de/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip) and [Docker](https://github.com/docker/toolbox/releases/download/v18.09.3/DockerToolbox-18.09.3.exe), both installed on your device.
+After that just have to :
+* clone this repository ``git clone https://github.com/fantozor/subh.git``
+* run the script ``./buildAndRun.sh``
 
 ## Project Structures
 * ``/beans :`` here are all **backend Beans** classes implemented. The **loginBean** is present in almost all others beans as **ManagedProperty**, with scope **SessionScoped** and carry the current user.
