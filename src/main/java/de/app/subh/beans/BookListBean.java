@@ -1,5 +1,6 @@
 package de.app.subh.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -18,8 +19,13 @@ import de.app.subh.models.Book;
 import de.app.subh.models.enums.BookCategory;
 
 @ManagedBean
-@SessionScoped
-public class BookListBean {
+@ViewScoped
+public class BookListBean implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 475900303996076135L;
 
 	@EJB
 	private DBReader dbReader;

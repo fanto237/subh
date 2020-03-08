@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  db:
+    image: mysql
+    container_name: subh-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+  
+  wildfly:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: subhv-wildfly
+    network_mode: host
+    environment:
+        DB_HOST: db
+    ports:
+      - 9990:9990
+    

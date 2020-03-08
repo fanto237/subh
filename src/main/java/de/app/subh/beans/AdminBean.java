@@ -1,5 +1,6 @@
 package de.app.subh.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +23,12 @@ import de.app.subh.models.enums.UserRole;
 
 @ManagedBean
 @SessionScoped
-public class AdminBean {
+public class AdminBean implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -85427730149722476L;
 
 	@EJB
 	private DBReader dbReader;
@@ -188,7 +194,8 @@ public class AdminBean {
 	 * @return
 	 */
 	public String deleteUser() {
-		dbWriter.deleteUser(getSelectedUser());
+		User tmp = getSelectedUser();
+		dbWriter.deleteUser(tmp);
 		userSearchResults.setWrappedData(dbReader.findAllUser());
 		return "/adminpage.xhtml?faces-redirect=true";
 	}

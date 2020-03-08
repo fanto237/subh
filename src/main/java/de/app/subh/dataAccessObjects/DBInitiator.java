@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 /**
  * create the connection to the data base using the persistence.xml file
  * 
- * @author lucien
+ * @author lucien and @author francine
  *
  */
 

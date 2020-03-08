@@ -15,7 +15,7 @@ import de.app.subh.models.enums.BookCategory;
 /**
  * to get Entities from the database
  * 
- * @author lucien
+ * @author lucien and @author francine
  *
  */
 
