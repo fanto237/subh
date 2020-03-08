@@ -7,7 +7,7 @@ A library online platform for borrowing books and administration users and books
 ⋅⋅⋅The knowledge in Java EE, JavaServer Faces, Contexts and Dependency Injection and Hibernate has been improved and was necessary for the realization of this project
 
 ## Project Structures
-* ``/beans :`` here are all ``@ManagedBeans`` classes implemented. The ``loginBean`` is present in almost all others beans as ``ManagedProperty``, with scope ``SessionScoped`` and carry the current user.
+* ``/beans :`` here are all **@ManagedBeans** classes implemented. The **loginBean** is present in almost all others beans as **ManagedProperty**, with scope **SessionScoped** and carry the current user.
 
 * ``/dataAccessObjects :`` here are all classes need for transactions on the database and the hibernate calls.
 
@@ -20,10 +20,14 @@ A library online platform for borrowing books and administration users and books
 * ``/utilities :`` Validators and EncryptionsHelper to encrypt the password using a random salt before saving in the database.
 
 ## Key Dependencies
-⋅⋅⋅Hibernate: Open-Source-Persistence- and ORM-Framework for Java application. Alternative Eclipse-Link⋅⋅
-⋅⋅⋅MySQL: an open source database management system developed by Oracle. Alternative  H2⋅⋅
-⋅⋅⋅Primefaces: Open source framework for JavaServer Faces featuring over 100 components, touch optimized mobilekit, client side validation, theme engine and more.⋅⋅
-⋅⋅⋅Bootsfaces: JSF framework based on Bootstrap 3 and jQuery UI⋅⋅
+Hibernate: Open-Source-Persistence- and ORM-Framework for Java application. Alternative Eclipse-Link
+MySQL: an open source database management system developed by Oracle. Alternative  H2
+Primefaces: Open source framework for JavaServer Faces featuring over 100 components, touch optimized mobilekit, client side validation, theme engine and more.
+Bootsfaces: JSF framework based on Bootstrap 3 and jQuery UI
+
+⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅
+⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅
+⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
 
 
 ## Features
