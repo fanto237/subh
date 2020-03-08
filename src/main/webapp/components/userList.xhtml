@@ -37,11 +37,11 @@
 								<f:selectItems value="#{adminBean.kontoStatus}" />
 							</h:selectOneMenu>
 						</b:dataTableColumn>
-						<b:dataTableColumn label="Aktion">
+						<b:dataTableColumn label="">
 							<b:commandButton value="Speichern" ajax="true" update="@form"
 								action="#{adminBean.saveUser()}" />
 						</b:dataTableColumn>
-						<b:dataTableColumn label="Aktion">
+						<b:dataTableColumn label="">
 							<b:commandButton value="Löschen" ajax="true" update="@form"
 								action="#{adminBean.deleteUser()}" />
 						</b:dataTableColumn>

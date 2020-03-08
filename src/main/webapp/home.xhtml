@@ -19,13 +19,14 @@
 		<b:container>
 			<c:choose>
 				<c:when test="#{loginBean.user.adminUser}">
-					<h1 align="center">
+					<h1 align="left">
 						Welcome
 						<h:outputText value="#{loginBean.user.vorname}" />
-						to your Administration session !
+						!
 					</h1>
 					<br />
-					<p>Hier kannst du das System komplet verwalten.</p>
+					<p>In deiner Admin Session kannst du das System komplett
+						verwalten.</p>
 					<p>
 						<a class="btn btn-primary btn-lg" href="adminpage.xhtml">Get
 							started</a>

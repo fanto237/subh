@@ -181,11 +181,6 @@ public class AdminBean {
 		return "/adminpage.xhtml?faces-redirect=true";
 	}
 
-//	public String saveUser() {
-//		dbWriter.updateUser(getSelectedUser());
-//		userSearchResults.setWrappedData(dbReader.findAllUser());
-//		return 
-//	}
 
 	/**
 	 * delete a selected user
