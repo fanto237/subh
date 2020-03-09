@@ -40,14 +40,9 @@
 						<b:dataTable style="background-color: #d9d9d9;"
 							value="#{bookListBean.bookSearchResults}" var="book"
 							autoUpdate="true" searching="false">
-							<b:dataTableColumn label="Name" style="width:130;">
-								<b:commandButton action="#{bookListBean.goTo()}"
-									value="#{book.name}"
-									style="border:none;padding:0;color:blue;text-decoration:blink;cursor:pointer;" />
-							</b:dataTableColumn>
+							<b:dataTableColumn label="Name" value="#{book.name}" />
 							<b:dataTableColumn value="#{book.status}" label="Status" />
-							<b:dataTableColumn value="#{book.borrower}"
-								label="Ausgeliehen von :" />
+							<b:dataTableColumn value="#{book.borrower}" label="Ausleiher" />
 							<b:dataTableColumn value="#{book.category.displayText}"
 								label="Kategorie" />
 							<b:dataTableColumn value="#{book.publishDate}" label="Datum"

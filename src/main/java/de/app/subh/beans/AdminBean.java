@@ -1,6 +1,5 @@
 package de.app.subh.beans;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,12 +23,8 @@ import de.app.subh.models.enums.UserRole;
 
 @ManagedBean
 @SessionScoped
-public class AdminBean implements Serializable {
+public class AdminBean {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -85427730149722476L;
 
 	@EJB
 	private DBReader dbReader;
@@ -51,7 +46,8 @@ public class AdminBean implements Serializable {
 	public void init() {
 
 		this.searchTerm = "";
-		bookSearchResults.setWrappedData(dbReader.getAllBook());
+		this.choosedBook = new Book();
+		bookSearchResults.setWrappedData(dbReader.findAllBook());
 		userSearchResults.setWrappedData(dbReader.findAllUser());
 
 	}
@@ -59,16 +55,8 @@ public class AdminBean implements Serializable {
 	public AdminBean() {
 		bookSearchResults = new ListDataModel<>();
 		userSearchResults = new ListDataModel<>();
-		this.choosedBook = new Book();
 	}
 
-//	public void clearAll() {
-//		this.searchTerm = "";
-//		this.bookSearchResults = null;
-//		this.userSearchResults = null;
-//		this.dbReader = null;
-//		this.dbWriter = null;
-//	}
 
 	// Book administration
 
@@ -78,7 +66,7 @@ public class AdminBean implements Serializable {
 	public void searchBook() {
 		bookSearchResults = new ListDataModel<>();
 		List<Book> results = new ArrayList<>();
-		for (Book book : this.dbReader.getAllBook()) {
+		for (Book book : this.dbReader.findAllBook()) {
 			if (book.getName().toLowerCase().contains(searchTerm.toLowerCase()))
 				results.add(book);
 		}
@@ -94,7 +82,7 @@ public class AdminBean implements Serializable {
 
 		bookSearchResults = new ListDataModel<>();
 		List<Book> results = new ArrayList<>();
-		for (Book book : this.dbReader.getAllBook()) {
+		for (Book book : this.dbReader.findAllBook()) {
 			if (book.getCategory().equals(cat))
 				results.add(book);
 		}
@@ -115,7 +103,7 @@ public class AdminBean implements Serializable {
 		else {
 			this.dbWriter.addBook(book);
 		}
-		bookSearchResults.setWrappedData(dbReader.getAllBook());
+		bookSearchResults.setWrappedData(dbReader.findAllBook());
 
 		return "/adminpage.xhtml?faces-redirect=true";
 	}
@@ -147,7 +135,7 @@ public class AdminBean implements Serializable {
 	 */
 	public String saveBook(Book book) {
 		dbWriter.updateBook(book);
-		bookSearchResults.setWrappedData(dbReader.getAllBook());
+		bookSearchResults.setWrappedData(dbReader.findAllBook());
 		return "/adminpage.xhtml?faces-redirect=true";
 	}
 
@@ -158,7 +146,7 @@ public class AdminBean implements Serializable {
 	 */
 	public String deleteBook() {
 		dbWriter.deleteBook(getSelectedBook());
-		bookSearchResults.setWrappedData(dbReader.getAllBook());
+		bookSearchResults.setWrappedData(dbReader.findAllBook());
 		return "/adminpage.xhtml?faces-redirect=true";
 	}
 

@@ -1,6 +1,5 @@
 package de.app.subh.beans;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -19,13 +18,8 @@ import de.app.subh.models.Book;
 import de.app.subh.models.enums.BookCategory;
 
 @ManagedBean
-@ViewScoped
-public class BookListBean implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 475900303996076135L;
+@SessionScoped
+public class BookListBean {
 
 	@EJB
 	private DBReader dbReader;
@@ -44,8 +38,8 @@ public class BookListBean implements Serializable{
 	public void init() {
 		this.searchTerm = "";
 		this.choosedBook = new Book();
-		this.bookSearchResults = new ListDataModel<>(dbReader.findAllBook());
-		this.bookSearchResults.setWrappedData(this.dbReader.findAllBook());
+		this.bookSearchResults = new ListDataModel<>(dbReader.findAllFreeBook());
+		this.bookSearchResults.setWrappedData(this.dbReader.findAllFreeBook());
 	}
 
 	public BookListBean() {
@@ -54,7 +48,7 @@ public class BookListBean implements Serializable{
 	public void search() {
 		bookSearchResults = new ListDataModel<>();
 		List<Book> results = new ArrayList<>();
-		for (Book book : this.dbReader.findAllBook()) {
+		for (Book book : this.dbReader.findAllFreeBook()) {
 			if (book.getName().toLowerCase().contains(searchTerm.toLowerCase()))
 				results.add(book);
 		}
@@ -64,7 +58,7 @@ public class BookListBean implements Serializable{
 	public void filterCategory(BookCategory cat) {
 
 		if (cat == null)
-			bookSearchResults.setWrappedData(this.dbReader.findAllBook());
+			bookSearchResults.setWrappedData(this.dbReader.findAllFreeBook());
 		else {
 			bookSearchResults.setWrappedData(this.dbReader.findBookByCategory(cat));
 		}
@@ -72,13 +66,13 @@ public class BookListBean implements Serializable{
 
 	public String borrow() {
 		dbWriter.borrowBook(getSelectedBook(), loginBean.getUser());
-		bookSearchResults.setWrappedData(dbReader.findAllBook());
+		bookSearchResults.setWrappedData(dbReader.findAllFreeBook());
 		return "books.xhtml?faces-redirect=true";
 	}
 	
 	public String borrowWithoutRow() {
 		dbWriter.borrowBook(choosedBook, loginBean.getUser());
-		bookSearchResults.setWrappedData(dbReader.findAllBook());
+		bookSearchResults.setWrappedData(dbReader.findAllFreeBook());
 		return "books.xhtml?faces-redirect=true";
 	}
 
@@ -89,7 +83,7 @@ public class BookListBean implements Serializable{
 	}
 	
 	public String comeBack() {
-		bookSearchResults.setWrappedData(dbReader.findAllBook());
+		bookSearchResults.setWrappedData(dbReader.findAllFreeBook());
 		return "/books.xhtml?faces-redirect=true";
 	}
 

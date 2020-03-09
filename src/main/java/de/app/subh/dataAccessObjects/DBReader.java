@@ -95,7 +95,7 @@ public class DBReader {
 	 *
 	 * @return
 	 */
-	public List<Book> findAllBook() {
+	public List<Book> findAllFreeBook() {
 		String status = "Available";
 		TypedQuery<Book> q = entityManager.createQuery("SELECT b FROM Book b WHERE b.status = :status", Book.class);
 		q.setParameter("status", status);
@@ -108,8 +108,8 @@ public class DBReader {
 		}
 	}
 	
-	public List<Book> getAllBook() {
-		TypedQuery<Book> q = entityManager.createQuery("SELECT b FROM Book b", Book.class);
+	public List<Book> findAllBook() {
+		TypedQuery<Book> q = entityManager.createQuery("from Book", Book.class);
 		try {
 			return q.getResultList();
 		} catch (NoResultException e) {
