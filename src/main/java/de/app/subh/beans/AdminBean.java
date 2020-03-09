@@ -25,7 +25,6 @@ import de.app.subh.models.enums.UserRole;
 @SessionScoped
 public class AdminBean {
 
-
 	@EJB
 	private DBReader dbReader;
 
@@ -57,7 +56,6 @@ public class AdminBean {
 		userSearchResults = new ListDataModel<>();
 	}
 
-
 	// Book administration
 
 	/**
@@ -82,30 +80,17 @@ public class AdminBean {
 
 		bookSearchResults = new ListDataModel<>();
 		List<Book> results = new ArrayList<>();
-		for (Book book : this.dbReader.findAllBook()) {
-			if (book.getCategory().equals(cat))
-				results.add(book);
-		}
-		bookSearchResults.setWrappedData(results);
-	}
-
-	/**
-	 * insert a new book in the data base and in the table of book as well
-	 * 
-	 * @param book
-	 * @return
-	 */
-	public String addBook(Book book) {
-
-		bookSearchResults = new ListDataModel<>();
-		if (book == null)
-			System.out.println("es wurde kein Buch hinzugefügt !");
+		List<Book> allBook = this.dbReader.findAllBook();
+		
+		if (cat == null)
+			bookSearchResults.setWrappedData(allBook);
 		else {
-			this.dbWriter.addBook(book);
+			for (Book book : allBook) {
+				if (book.getCategory().equals(cat))
+					results.add(book);
+			}
+			bookSearchResults.setWrappedData(results);
 		}
-		bookSearchResults.setWrappedData(dbReader.findAllBook());
-
-		return "/adminpage.xhtml?faces-redirect=true";
 	}
 
 	/**
@@ -113,18 +98,27 @@ public class AdminBean {
 	 * 
 	 * @return
 	 */
-	public String editBook() {
+	public String editBook(Book book) {
 		choosedBook = getSelectedBook();
 
-		if (choosedBook.getStatus().equals("Available")) {
-			return "/editBook.xhtml?faces-redirect=true&id=" + choosedBook.getId();
+		if (book.getStatus().equals("Available")) {
+			return "/editBook.xhtml?faces-redirect=true&id=" + book.getId();
 		} else {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			ctx.addMessage(null,
 					new FacesMessage("Das Book is momentan ausgelieht und kann nicht bearbeitet werden !"));
+			return "/adminpage.xhtml?faces-redirect=true&activeIndex=1";
 		}
+	}
+
+	/**
+	 * send to the page for adding a new book
+	 * 
+	 * @return
+	 */
+	public String goTo() {
 		choosedBook = new Book();
-		return "/adminpage.xhtml?faces-redirect=true";
+		return "/addBook.xhtml?faces-redirect=true";
 	}
 
 	/**
@@ -133,10 +127,12 @@ public class AdminBean {
 	 * @param book
 	 * @return
 	 */
-	public String saveBook(Book book) {
-		dbWriter.updateBook(book);
+	public String saveBook() {
+		System.out.println("++++++++++++++++++ "+choosedBook.getAuthor());
+		dbWriter.updateBook(choosedBook);
 		bookSearchResults.setWrappedData(dbReader.findAllBook());
-		return "/adminpage.xhtml?faces-redirect=true";
+		choosedBook = new Book();
+		return "/adminpage.xhtml?faces-redirect=true&activeIndex=1";
 	}
 
 	/**
@@ -145,9 +141,15 @@ public class AdminBean {
 	 * @return
 	 */
 	public String deleteBook() {
-		dbWriter.deleteBook(getSelectedBook());
+		if (getSelectedBook().getStatus().equals("Available"))
+			dbWriter.deleteBook(getSelectedBook());
+		else {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			ctx.addMessage(null,
+					new FacesMessage("Das Book is momentan ausgelieht und kann nicht gelöscht werden werden !"));
+		}
 		bookSearchResults.setWrappedData(dbReader.findAllBook());
-		return "/adminpage.xhtml?faces-redirect=true";
+		return "/adminpage.xhtml?faces-redirect=true&activeIndex=1";
 	}
 
 	public Book getSelectedBook() {
@@ -187,9 +189,9 @@ public class AdminBean {
 	 */
 	public String deleteUser() {
 		User tmp = getSelectedUser();
-		if (tmp == loginBean.getUser()) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Du kann dich selbst löschen !"));
-			return "/adminpage.xhtml?faces-redirect=true";
+		if (getAmountOfBook(tmp) != 0) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Der User " + tmp.getUsername() + " besitzt noch Bücher !"));
 		} else {
 			dbWriter.deleteUser(tmp);
 			userSearchResults.setWrappedData(dbReader.findAllUser());
@@ -201,13 +203,7 @@ public class AdminBean {
 		return this.dbReader.findBookByUser(user.getUsername()).size();
 	}
 
-	public List<BookCategory> getCategoryEnumValues() {
-		return new ArrayList<>(Arrays.asList(BookCategory.values()));
-	}
-
-	public List<UserRole> getRoleEnumValues() {
-		return new ArrayList<>(Arrays.asList(UserRole.values()));
-	}
+	// Setters and Getters
 
 	public List<String> getKontoStatus() {
 		ArrayList<String> status = new ArrayList<>();
@@ -216,7 +212,13 @@ public class AdminBean {
 		return status;
 	}
 
-	// Setters and Getters
+	public List<BookCategory> getCategoryEnumValues() {
+		return new ArrayList<>(Arrays.asList(BookCategory.values()));
+	}
+
+	public List<UserRole> getRoleEnumValues() {
+		return new ArrayList<>(Arrays.asList(UserRole.values()));
+	}
 
 	public User getSelectedUser() {
 		return userSearchResults.getRowData();
@@ -278,5 +280,4 @@ public class AdminBean {
 		this.loginBean = loginBean;
 	}
 
-	
 }

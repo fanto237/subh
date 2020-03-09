@@ -144,14 +144,14 @@ public class DBWriter {
 	 * 
 	 * @param book
 	 */
-	public void updateBook(final Book book) {
-		if (Objects.nonNull(book)) {
+	public void updateBook( Book book) {
+		//if (Objects.nonNull(book)) {
 			transaction.begin();
-			dbReader.getEntityManager().merge(book);
-//			dbReader.getEntityManager().persist(book);
+			book = dbReader.getEntityManager().merge(book);
+			dbReader.getEntityManager().persist(book);
 			transaction.commit();
-		} else
-			System.out.println("the book is null !");
+//		} else
+//			System.out.println("the book is null !");
 	}
 
 	/**

@@ -10,9 +10,9 @@
 		<b:container>
 			<b:row style="margin-top:40px">
 				<b:column span="8" offset="2">
-					<b:inputText value="#{bookListBean.searchTerm}"
+					<b:inputText value="#{adminBean.searchTerm}"
 						class="booksSearchInput" placeholder="Suchen...">
-						<f:ajax event="keyup" listener="#{bookListBean.search()}"
+						<f:ajax event="keyup" listener="#{adminBean.searchBook()}"
 							delay="500" />
 					</b:inputText>
 				</b:column>
@@ -23,12 +23,12 @@
 					<div id="BookCategoryButton" style="text-align: center;">
 						<b:commandButton style="margin-right:10px" class="btn-primary"
 							ajax="true" value="Alle"
-							action="#{bookListBean.filterCategory(null)}" />
-						<c:forEach items="${bookListBean.categoryEnumValues}"
+							action="#{adminBean.filterCategory(null)}" />
+						<c:forEach items="${adminBean.categoryEnumValues}"
 							var="category">
 							<b:commandButton style="margin-right:10px" class="btn-primary"
 								ajax="true" value="#{category.displayText}"
-								action="#{bookListBean.filterCategory(category)}" />
+								action="#{adminBean.filterCategory(category)}" />
 						</c:forEach>
 					</div>
 				</b:column>
@@ -38,7 +38,7 @@
 				<b:column span="11" offset="1">
 					<h:form>
 						<b:dataTable style="background-color: #d9d9d9;"
-							value="#{bookListBean.bookSearchResults}" var="book"
+							value="#{adminBean.bookSearchResults}" var="book"
 							autoUpdate="true" searching="false">
 							<b:dataTableColumn label="Name" value="#{book.name}" />
 							<b:dataTableColumn value="#{book.status}" label="Status" />
@@ -49,7 +49,7 @@
 								order="asc" />
 							<b:dataTableColumn label="">
 								<b:commandButton value="Bearbeiten"
-									action="#{adminBean.editBook()}"></b:commandButton>
+									action="#{adminBean.editBook(book)}"></b:commandButton>
 							</b:dataTableColumn>
 							<b:dataTableColumn label="">
 								<b:commandButton value="Löschen" look="danger"
@@ -62,7 +62,7 @@
 			<br />
 			<b:row>
 				<b:commandButton span="3" offset="1" value="Neues Buch hinzufügen"
-					action="editBook.xhtml" look="info" />
+					action="#{adminBean.goTo()}" look="info" />
 			</b:row>
 
 		</b:container>

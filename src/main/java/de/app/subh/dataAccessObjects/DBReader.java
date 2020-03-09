@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import de.app.subh.models.Book;
 import de.app.subh.models.User;
 import de.app.subh.models.enums.BookCategory;
+import de.app.subh.models.enums.UserRole;
 
 /**
  * to get Entities from the database
@@ -35,7 +36,9 @@ public class DBReader {
 	 */
 	public List<User> findAllUser() {
 
-		TypedQuery<User> q = entityManager.createQuery("SELECT u FROM User u", User.class);
+		TypedQuery<User> q = entityManager.createQuery("SELECT u FROM User u WHERE u.role = :role1 OR u.role = :role2", User.class);
+		q.setParameter("role1", UserRole.NORMAL);
+		q.setParameter("role2", UserRole.STUDENT);
 		try {
 			return q.getResultList();
 		} catch (NoResultException e) {
@@ -108,8 +111,15 @@ public class DBReader {
 		}
 	}
 	
+	/**
+	 * return all books, which are borrowed or available
+	 * @return
+	 */
+	
 	public List<Book> findAllBook() {
-		TypedQuery<Book> q = entityManager.createQuery("from Book", Book.class);
+		TypedQuery<Book> q = entityManager.createQuery("SELECT b FROM Book b WHERE b.status = :status1 OR b.status = :status2", Book.class);
+		q.setParameter("status1", "Borrowed");
+		q.setParameter("status2", "Available");
 		try {
 			return q.getResultList();
 		} catch (NoResultException e) {
