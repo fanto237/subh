@@ -39,28 +39,37 @@
 					<h:form>
 						<b:dataTable style="background-color: #d9d9d9;"
 							value="#{bookListBean.bookSearchResults}" var="book"
-							autoUpdate="true" searching="false"
-							caption="List of book contained in the data base">
+							autoUpdate="true" searching="false">
 							<b:dataTableColumn label="Name" style="width:130;">
 								<b:commandButton action="#{bookListBean.goTo()}"
 									value="#{book.name}"
 									style="border:none;padding:0;color:blue;text-decoration:blink;cursor:pointer;" />
 							</b:dataTableColumn>
-							<b:dataTableColumn value="#{book.author}" label="Autor" />
+							<b:dataTableColumn value="#{book.status}" label="Status" />
+							<b:dataTableColumn value="#{book.borrower}"
+								label="Ausgeliehen von :" />
 							<b:dataTableColumn value="#{book.category.displayText}"
 								label="Kategorie" />
 							<b:dataTableColumn value="#{book.publishDate}" label="Datum"
 								order="asc" />
-							<b:dataTableColumn value="#{book.shortDescription}"
-								label="Beschreibung" />
 							<b:dataTableColumn label="">
-								<b:commandButton value="Sofort Ausleihen"
-									action="#{bookListBean.borrow()}"></b:commandButton>
+								<b:commandButton value="Bearbeiten"
+									action="#{adminBean.editBook()}"></b:commandButton>
+							</b:dataTableColumn>
+							<b:dataTableColumn label="">
+								<b:commandButton value="Löschen" look="danger"
+									action="#{adminBean.deleteBook()}"></b:commandButton>
 							</b:dataTableColumn>
 						</b:dataTable>
 					</h:form>
 				</b:column>
 			</b:row>
+			<br />
+			<b:row>
+				<b:commandButton span="3" offset="1" value="Neues Buch hinzufügen"
+					action="editBook.xhtml" look="info" />
+			</b:row>
+
 		</b:container>
 	</h:form>
 </ui:composition>
