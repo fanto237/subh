@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
@@ -23,7 +24,7 @@ import de.app.subh.models.enums.UserRole;
 
 @ManagedBean
 @SessionScoped
-public class AdminBean implements Serializable{
+public class AdminBean implements Serializable {
 
 	/**
 	 * 
@@ -35,6 +36,9 @@ public class AdminBean implements Serializable{
 
 	@EJB
 	private DBWriter dbWriter;
+
+	@ManagedProperty("#{loginBean}")
+	private LoginBean loginBean;
 
 	private DataModel<Book> bookSearchResults;
 	private Book choosedBook;
@@ -121,16 +125,17 @@ public class AdminBean implements Serializable{
 	 * 
 	 * @return
 	 */
-	public String modifyBook() {
+	public String editBook() {
 		choosedBook = getSelectedBook();
 
-		if (choosedBook.getStatus().equals("AVAILABLE")) {
+		if (choosedBook.getStatus().equals("Available")) {
 			return "/editBook.xhtml?faces-redirect=true&id=" + choosedBook.getId();
 		} else {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			ctx.addMessage(null,
 					new FacesMessage("Das Book is momentan ausgelieht und kann nicht bearbeitet werden !"));
 		}
+		choosedBook = new Book();
 		return "/adminpage.xhtml?faces-redirect=true";
 	}
 
@@ -187,7 +192,6 @@ public class AdminBean implements Serializable{
 		return "/adminpage.xhtml?faces-redirect=true";
 	}
 
-
 	/**
 	 * delete a selected user
 	 * 
@@ -195,8 +199,13 @@ public class AdminBean implements Serializable{
 	 */
 	public String deleteUser() {
 		User tmp = getSelectedUser();
-		dbWriter.deleteUser(tmp);
-		userSearchResults.setWrappedData(dbReader.findAllUser());
+		if (tmp == loginBean.getUser()) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Du kann dich selbst löschen !"));
+			return "/adminpage.xhtml?faces-redirect=true";
+		} else {
+			dbWriter.deleteUser(tmp);
+			userSearchResults.setWrappedData(dbReader.findAllUser());
+		}
 		return "/adminpage.xhtml?faces-redirect=true";
 	}
 
@@ -273,4 +282,13 @@ public class AdminBean implements Serializable{
 		this.searchTerm = searchTerm;
 	}
 
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
+	}
+
+	
 }

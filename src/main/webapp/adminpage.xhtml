@@ -12,19 +12,25 @@
 </h:head>
 <h:body>
 	<ui:include src="components/header.xhtml" />
-	<br/>
-	<br/>
-	<br/>
+	<br />
+	<br />
+	<br />
 	<b:container>
 		<c:choose>
 			<c:when
 				test="#{not empty loginBean.user and loginBean.user.adminUser}">
 				<b:tabView activeIndex="0">
-					<b:tab title="users console">
+					<b:tab title="Users console">
+						<f:facet name="anchor">
+							<b:iconAwesome name="cog" spin="false" />
+						</f:facet>
 						<ui:include src="components/userList.xhtml" />
 					</b:tab>
-					<b:tab title="books console" id="asd">
-						<h:outputText value="Is coming !" />
+					<b:tab title="Books console" id="asd">
+						<f:facet name="anchor">
+							<b:iconAwesome name="cog" spin="true" />
+						</f:facet>
+						<ui:include src="components/booksListAdmin.xhtml" />
 					</b:tab>
 				</b:tabView>
 			</c:when>
@@ -32,6 +38,12 @@
                 Nicht authorisiert!
             </c:otherwise>
 		</c:choose>
+	</b:container>
+	<b:container>
+		<hr />
+		<footer>
+			<br/>
+		</footer>
 	</b:container>
 </h:body>
 </html>
