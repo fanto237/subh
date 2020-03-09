@@ -54,7 +54,8 @@ public class DBWriter {
 
 		if (Objects.nonNull(user)) {
 			transaction.begin();
-			dbReader.getEntityManager().remove(user);
+			dbReader.getEntityManager().remove(
+					dbReader.getEntityManager().contains(user) ? user : dbReader.getEntityManager().merge(user));
 			transaction.commit();
 		} else
 			System.out.println("the user is null");
@@ -83,7 +84,8 @@ public class DBWriter {
 	public void deleteBook(Book book) {
 
 		transaction.begin();
-		dbReader.getEntityManager().remove(book);
+		dbReader.getEntityManager()
+				.remove(dbReader.getEntityManager().contains(book) ? book : dbReader.getEntityManager().merge(book));
 		transaction.commit();
 	}
 
