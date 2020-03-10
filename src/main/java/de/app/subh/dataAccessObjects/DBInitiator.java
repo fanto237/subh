@@ -27,7 +27,8 @@ public enum DBInitiator {
 	}
 
 	/**
-	 * method used to created the entity manager 
+	 * method used to created the entity manager
+	 * @return entity manager 
 	 */
 	public EntityManager getEntityManager() {
 		return entityManagerFactory.createEntityManager();

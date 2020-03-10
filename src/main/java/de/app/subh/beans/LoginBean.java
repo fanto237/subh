@@ -95,10 +95,7 @@ public class LoginBean implements Serializable {
 	}
 	
 	
-	/**
-	 * Setters and Getters
-	 *
-	 */
+	// Setters and Getters
 
 	public DBReader getDbReader() {
 		return dbReader;

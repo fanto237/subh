@@ -96,7 +96,7 @@ public class AdminBean {
 	/**
 	 * modify a selected Book
 	 * 
-	 * @return
+	 * @return adminpage.xhtml redirection 
 	 */
 	public String editBook(Book book) {
 		choosedBook = getSelectedBook();
@@ -114,7 +114,7 @@ public class AdminBean {
 	/**
 	 * send to the page for adding a new book
 	 * 
-	 * @return
+	 * @return addBook.xhtml redirection
 	 */
 	public String goTo() {
 		choosedBook = new Book();
@@ -125,7 +125,7 @@ public class AdminBean {
 	 * save the modified book in the data base
 	 * 
 	 * @param book
-	 * @return
+	 * @return adminpage.xhtml redirection 
 	 */
 	public String saveBook() {
 		System.out.println("++++++++++++++++++ "+choosedBook.getAuthor());
@@ -138,7 +138,7 @@ public class AdminBean {
 	/**
 	 * delete a selected book
 	 * 
-	 * @return
+	 * @return adminpage.xhtml redirection 
 	 */
 	public String deleteBook() {
 		if (getSelectedBook().getStatus().equals("Available"))
@@ -174,7 +174,7 @@ public class AdminBean {
 	/**
 	 * edit all users in the data base at once
 	 * 
-	 * @return
+	 * @return adminpage.xhtml redirection 
 	 */
 	public String saveUser() {
 		dbWriter.updateUser(getSelectedUser());
@@ -185,7 +185,7 @@ public class AdminBean {
 	/**
 	 * delete a selected user
 	 * 
-	 * @return
+	 * @return adminpage.xhtml redirection 
 	 */
 	public String deleteUser() {
 		User tmp = getSelectedUser();

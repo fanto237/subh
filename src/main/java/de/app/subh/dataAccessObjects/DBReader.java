@@ -32,7 +32,7 @@ public class DBReader {
 	/**
 	 * return a list of all the user
 	 * 
-	 * @return
+	 * @return list of user
 	 */
 	public List<User> findAllUser() {
 
@@ -51,8 +51,8 @@ public class DBReader {
 	/**
 	 * find a user by his name
 	 * 
-	 * @param name
-	 * @return
+	 * @param name of user
+	 * @return selected user
 	 */
 	public User findSingleUserByName(final String name) {
 
@@ -71,9 +71,9 @@ public class DBReader {
 	/**
 	 * find a use by his name or his email
 	 * 
-	 * @param name
-	 * @param email
-	 * @return
+	 * @param name of user
+	 * @param email of user
+	 * @return selected user
 	 */
 	public User findUserByNameOrEmail(final String name, final String email) {
 
@@ -96,7 +96,7 @@ public class DBReader {
 	/**
 	 * return all books from the data base, which are available
 	 *
-	 * @return
+	 * @return list of book
 	 */
 	public List<Book> findAllFreeBook() {
 		String status = "Available";
@@ -113,7 +113,7 @@ public class DBReader {
 	
 	/**
 	 * return all books, which are borrowed or available
-	 * @return
+	 * @return list of book
 	 */
 	
 	public List<Book> findAllBook() {
@@ -132,8 +132,8 @@ public class DBReader {
 	
 	/**
 	 * return the books borrowed by an user on the basis of his name
-	 * @param username
-	 * @return
+	 * @param username of book
+	 * @return list of book
 	 */
 	public List<Book> findBookByUser(String username){
 		TypedQuery<Book> q = entityManager.createQuery("SELECT b FROM Book b WHERE b.borrower = :userName", Book.class);
@@ -150,8 +150,8 @@ public class DBReader {
 	
 	/**
 	 * return all books of a determinate category
-	 * @param category
-	 * @return
+	 * @param category of book
+	 * @return list of book
 	 */
 	public List<Book> findBookByCategory(BookCategory category){
 		TypedQuery<Book> q = entityManager.createQuery("SELECT b FROM Book b WHERE b.category = :category AND b.status = :status", Book.class);
