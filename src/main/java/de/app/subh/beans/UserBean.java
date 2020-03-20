@@ -33,11 +33,11 @@ public class UserBean {
 	private LoginBean loginBean;
 
 	private List<Book> userBooks;
-	
+
 	private DataModel<Book> borrowedBooks;
 
 	private User currentUser;
-	
+
 	private String oldPassword;
 
 	private String newPasswort;
@@ -97,20 +97,25 @@ public class UserBean {
 		} else {
 			System.out.println("es wurde keine passwort eingegen !");
 		}
-		
+
 		dbWriter.updateUser(currentUser);
 
 		return "/profile.xhtml?faces-redirect=true";
 	}
-	
+
 	public String desactiveAccount() {
-		
-		if(userBooks.size() == 0) {
+
+		if (userBooks.size() != 0 || currentUser.isAdminUser()) {
+			if (currentUser.isAdminUser())
+				FacesContext.getCurrentInstance().addMessage("error",
+						new FacesMessage("Kein Admin konto kann gelöscht werden !"));
+			else
+				FacesContext.getCurrentInstance().addMessage("error",
+						new FacesMessage("Sie müssen erst alle Bücher zurückgeben !"));
+		} else {
 			currentUser.setStatus("DESACTIVED");
 			dbWriter.updateUser(currentUser);
 			return logout();
-		}else {
-			FacesContext.getCurrentInstance().addMessage("error", new FacesMessage("Sie müssen erst alle Bücher zurückgeben !"));
 		}
 		return profileLink();
 	}
@@ -199,6 +204,5 @@ public class UserBean {
 	public void setNewPasswort(String newPasswort) {
 		this.newPasswort = newPasswort;
 	}
-
 
 }

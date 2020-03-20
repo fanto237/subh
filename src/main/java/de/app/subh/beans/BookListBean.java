@@ -6,9 +6,11 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -65,15 +67,35 @@ public class BookListBean {
 	}
 
 	public String borrow() {
-		dbWriter.borrowBook(getSelectedBook(), loginBean.getUser());
-		bookSearchResults.setWrappedData(dbReader.findAllFreeBook());
-		return "books.xhtml?faces-redirect=true";
+		if (loginBean.getUser().isNormalUser() && getAmountBook() == 3) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Sie können nicht mehr als 3 Bücher ausleihen !"));
+			return "books.xhtml?faces-redirect=true";
+		} else if (loginBean.getUser().isStudentUser() && getAmountBook() == 5) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Sie können nicht mehr als 5 Bücher ausleihen !"));
+			return "books.xhtml?faces-redirect=true";
+		} else {
+			dbWriter.borrowBook(getSelectedBook(), loginBean.getUser());
+			bookSearchResults.setWrappedData(dbReader.findAllFreeBook());
+			return "books.xhtml?faces-redirect=true";
+		}
 	}
-	
+
 	public String borrowWithoutRow() {
-		dbWriter.borrowBook(choosedBook, loginBean.getUser());
-		bookSearchResults.setWrappedData(dbReader.findAllFreeBook());
-		return "books.xhtml?faces-redirect=true";
+		if (loginBean.getUser().isNormalUser() && getAmountBook() == 3) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Sie können nicht mehr als 3 Bücher ausleihen !"));
+			return "books.xhtml?faces-redirect=true";
+		} else if (loginBean.getUser().isStudentUser() && getAmountBook() == 5) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Sie können nicht mehr als 5 Bücher ausleihen !"));
+			return "books.xhtml?faces-redirect=true";
+		} else {
+			dbWriter.borrowBook(choosedBook, loginBean.getUser());
+			bookSearchResults.setWrappedData(dbReader.findAllFreeBook());
+			return "books.xhtml?faces-redirect=true";
+		}
 	}
 
 	public String goTo() {
@@ -81,14 +103,18 @@ public class BookListBean {
 		System.out.println("Got to" + choosedBook.getId());
 		return "bookDetails.xhtml?faces-redirect=true&id=" + choosedBook.getId();
 	}
-	
+
 	public String comeBack() {
 		bookSearchResults.setWrappedData(dbReader.findAllFreeBook());
 		return "/books.xhtml?faces-redirect=true";
 	}
 
+	private int getAmountBook() {
+		return dbReader.findBookByUser(loginBean.getUser().getUsername()).size();
+	}
+
 	// Setters and Getters
-	
+
 	public Book getSelectedBook() {
 		return bookSearchResults.getRowData();
 	}
